@@ -12,7 +12,7 @@ import { useState } from 'react'
 
 function App() {
     const [listaTarefas, setListaTarefas] = useState<string[]>([])
-    const [deletarTarefa, setDeletarTarefa] = useState<string[]>([])
+    
   return (
     <>
     <header>
