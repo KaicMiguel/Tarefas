@@ -8,11 +8,12 @@ import Titulo from './Titulo'
 import AdicionarTarefa from './AdicionarTarefa'
 import CrdTarefas from './CrdTarefas'
 import { useState } from 'react'
+//import Contador from './Contador'
+
 
 
 function App() {
     const [listaTarefas, setListaTarefas] = useState<string[]>([])
-    
   return (
     <>
     <header>
@@ -21,7 +22,10 @@ function App() {
      
     <main>
     <AdicionarTarefa listaTarefas={listaTarefas} setListaTarefas={setListaTarefas}/>
-    <CrdTarefas listaTarefas={listaTarefas}/>
+    <CrdTarefas listaTarefas={listaTarefas} setListaTarefas={setListaTarefas} />
+   
+
+    
     </main>
       
     </>
