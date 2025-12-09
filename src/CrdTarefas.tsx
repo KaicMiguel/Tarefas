@@ -9,11 +9,27 @@ import {
    TabsList,
    TabsTrigger,
 } from "@/components/ui/tabs"
+import { CircleCheck } from 'lucide-react';
+import { useState } from 'react';
 
 
 //toggle -> alternar entre dois estados
 
 const CrdTarefas = ({ listaTarefas, setListaTarefas }: any) => {
+   
+   /*const contagem = ({ count, setCount }: any) => {
+      listaTarefas.length
+    
+   }*/
+
+   const contagemAtivas = (tarefa: string) => {
+      listaTarefas.filter((tarefa: any) => 
+         tarefa.ativo === true)
+      .map((tarefa: any, index: number) => (  
+      listaTarefas.length))
+   }
+
+
    const toggleTarefa = (id: number) => {
       setListaTarefas((prev: any) =>
          prev.map((tarefa: any) =>
@@ -21,7 +37,7 @@ const CrdTarefas = ({ listaTarefas, setListaTarefas }: any) => {
          )
       );
    }
-
+   
    const deleteTarefa = (tarefa: string) => {
       setListaTarefas((prev: any[]) => prev.filter(tarefa => tarefa.id !== tarefa.id));
       toast.success("Tarefa Deletada com Sucesso!")
@@ -32,15 +48,23 @@ const CrdTarefas = ({ listaTarefas, setListaTarefas }: any) => {
          <Tabs className='w-full bg-background shadow p-4 rounded-md ' defaultValue='' >
 
             <TabsList className=''>
-               <TabsTrigger value='todas'>Todas</TabsTrigger>
+               <TabsTrigger value="todas" {...contagemAtivas}>Todas</TabsTrigger>
                <TabsTrigger value='ativas'>Ativas</TabsTrigger>
                <TabsTrigger value='concluidas'>Concluídas</TabsTrigger>
             </TabsList>
+
             <TabsContent value='todas' className=''>
                <Card
                   className="p-40 shadow-lg relative shadow-none border-none">
 
                   {<div className="">
+                     {// Verifica se tem tarefas na lista
+                     listaTarefas.length === 0 && (
+                        <div>
+                           <CircleCheck className="w-10 h-10 mx-auto mb-2 text-gray-400 " />
+                           <span>Adicione sua primeira tarefa acima</span>
+                        </div>
+                     )}
                      {
                         listaTarefas.map((tarefa: any, index: number) => (
                            <div key={index} className="flex border border-gray-300 p-5 rounded-md mb-2 gap-2">
@@ -54,7 +78,7 @@ const CrdTarefas = ({ listaTarefas, setListaTarefas }: any) => {
                               <span className={`${tarefa.ativo ? "" : "line-through"}`}>{tarefa.tarefa}</span>
 
                               {
-                                 <Trash2 className="w-20 ml-auto cursor-pointer"
+                                 <Trash2 className="w-20 ml-auto cursor-pointer text-red-500"
                                     onClick={() => {
                                        console.log(`Tarefa Deletada`)
                                        deleteTarefa(tarefa)
@@ -69,76 +93,93 @@ const CrdTarefas = ({ listaTarefas, setListaTarefas }: any) => {
                   }
                </Card>
             </TabsContent>
+
             <TabsContent value='ativas'>
                <Card
-                  className="p-40 shadow-lg relative">
+                  className="p-40 shadow-lg relative shadow-none border-none">
 
-                  {<div className="">
-                     {
-                        listaTarefas.map((tarefa: any, index: number) => (
-                           <div key={index} className="flex border border-gray-300 p-5 rounded-md mb-2 gap-2">
+                  <div className="">
 
-                              <Checkbox
-                                 onClick={() => {
-                                    console.log("Tarefa Concluída")
-                                    toggleTarefa(tarefa.id)
-                                 }}
-                                 className={`border-green-400 rounded-full size-5 cursor-pointer`} />
-                              <span className={`${tarefa.ativo ? "" : "line-through"}`}>{tarefa.tarefa}</span>
+                     {// Verifica se tem tarefas na lista
+                     listaTarefas.length === 0 ? (
+                        <div className="text-center">
+                           <CircleCheck className="w-10 h-10 mx-auto mb-2 text-gray-400 " />
+                           <span>Você está em dia</span>
+                        </div>
+                     ) : (
+                        listaTarefas
+                           .filter((tarefa: any) => tarefa.ativo === true)
+                           .map((tarefa: any, index: number) => (
+                              <div key={index} className="flex border border-gray-300 p-5 rounded-md mb-2 gap-2">
 
-                              {
-                                 <Trash2 className="w-20 ml-auto cursor-pointer"
+                                 <Checkbox
+                                    onClick={() => {
+                                       console.log("Tarefa Concluída");
+                                       toggleTarefa(tarefa.id);
+                                    }}
+                                    className="border-green-400 rounded-full size-5 cursor-pointer"
+                                 />
+
+                                 <span className={`${tarefa.ativo ? "" : "line-through"}`}>{tarefa.tarefa}
+                                 </span>
+
+                                 <Trash2 className="w-20 ml-auto cursor-pointer text-red-500"
                                     onClick={() => {
                                        console.log(`Tarefa Deletada`)
                                        deleteTarefa(tarefa)
-                                    }
-                                    }
+                                    }}
                                  />
-                              }
+                              </div>
 
-                           </div>
-                        ))
-                     }</div>
-                  }
+                           ))
+                   )}
+
+                  </div>
+                  
+
                </Card>
-
             </TabsContent>
+
             <TabsContent value='concluidas'>
-
-
                <Card
-                  className="p-40 shadow-lg relative">
+                  className="p-40 shadow-lg relative shadow-none border-none">
 
-                  {<div className="">
-                     {
-                        listaTarefas.map((tarefa: any, index: number) => (
-                           <div key={index} className="flex border border-gray-300 p-5 rounded-md mb-2 gap-2">
+                  <div className="">
 
-                              <Checkbox
-                                 onClick={() => {
-                                    console.log("Tarefa Concluída")
-                                    toggleTarefa(tarefa.id)
-                                 }}
-                                 className={`border-green-400 rounded-full size-5 cursor-pointer`} />
-                              <span className={`${tarefa.ativo ? "" : "line-through"}`}>{tarefa.tarefa}</span>
+                     { 
+                     /* Mesmo quando a tarefa for adicionada, se o status dela não for false,ainda irá mostrar a mensagem de quando não tem tarefa nenhuma*/  
 
-                              {
-                                 <Trash2 className="w-20 ml-auto cursor-pointer"
+                     listaTarefas.filter((tarefa: any) => tarefa.ativo === false).length === 0 ? (
+                        <div>
+                           <CircleCheck className="w-10 h-10 mx-auto mb-2 text-gray-400 " />
+                           <span>Não tem tarefas concluídas ainda</span>
+                        </div>
+                     ) : (
+                        listaTarefas.filter((tarefa: any) => tarefa.ativo === false)
+                           .map((tarefa: any, index: number) => (
+                              <div key={index} className="flex border border-gray-300 p-5 rounded-md mb-2 gap-2">
+                                 <Checkbox
+                                    onClick={() => {
+                                       console.log("Tarefa Concluída")
+                                       toggleTarefa(tarefa.id)
+                                    }}
+                                    className={`border-green-400 rounded-full size-5 cursor-pointer`}
+                                 />
+                                 <span className={`${tarefa.ativo ? "" : "line-through"}`}>{tarefa.tarefa}
+                                 </span>
+
+                                 <Trash2 className="w-20 ml-auto cursor-pointer text-red-500"
                                     onClick={() => {
                                        console.log(`Tarefa Deletada`)
                                        deleteTarefa(tarefa)
-                                    }
-                                    }
+                                    }}
                                  />
-                              }
-
-                           </div>
-                        ))
-                     }</div>
-                  }
+                              </div>
+                           ))
+                        )}
+                   </div>
                </Card>
             </TabsContent>
-
 
          </Tabs>
 
@@ -150,7 +191,7 @@ export default CrdTarefas;
 // Ternário -> a=b ? { vai mostra oque vai serr vdd}  : vai mostrar oque vai ser false
 // && => Usado para quando for quiser que faça apenas oque for verdadeiro 
 //index é o 
-// ao adicionar a tarefa vem ativa, para eu conseguir deletar ou marcar como concluída e ao eu faezr isso aparecer uma linha que risca a tarefa, preciso alterar o estado dela para false
+// ao adicionar a tarefa vem ativa, para eu conseguir deletar ou marcar como concluída e ao eu fazer isso aparecer uma linha que risca a tarefa, preciso alterar o estado dela para false
 
 
 
@@ -180,7 +221,7 @@ useEffect(() => {
 
 
 
-{/*
+/*
                   character.map((tarefa: any) => (
                      <>
                         <div className='bg-green-200 flex flex-col gap-'>
@@ -192,4 +233,4 @@ useEffect(() => {
                         </div>
                      </>
                   ))
-               */}
+               */

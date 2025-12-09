@@ -24,8 +24,6 @@ const Adicionar = ({ setListaTarefas }: any) => {
     return (
         <div className="flex gap-3 pr-5 pl-5 pb-5 pt-5 justify-center items-center border-black-500 border rounded-lg shadow-md">
 
-
-
             <Input onKeyDown={(event: any) => {
                 if (event.target.value === "") {
                     return
