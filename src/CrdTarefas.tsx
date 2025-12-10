@@ -17,6 +17,7 @@ import { CircleCheck } from 'lucide-react';
 //toggle -> alternar entre dois estados
 
 const CrdTarefas = ({ listaTarefas, setListaTarefas }: any) => {
+
    const toggleTarefa = (id: number) => {
       setListaTarefas((prev: any) =>
          prev.map((tarefa: any) =>
@@ -29,7 +30,7 @@ const CrdTarefas = ({ listaTarefas, setListaTarefas }: any) => {
       setListaTarefas((prev: any[]) => prev.filter(id => id !== tarefa));
       toast(
          <div className="text-red-400 flex items-center gap-2">
-            <CircleCheck />
+            <CircleCheck/>
             <p>Tarefa Deletada com Sucesso!</p>
          </div>
       );
@@ -43,13 +44,21 @@ const CrdTarefas = ({ listaTarefas, setListaTarefas }: any) => {
             <TabsList className='gap-2'>
                <TabsTrigger value='todas'
                   className="data-[state=inactive]:text-black data-[state=active]:bg-green-400 text-white"
-               >Todas</TabsTrigger>
+               >Todas
+               <span>{listaTarefas.length}</span>
+               </TabsTrigger>
 
                <TabsTrigger value='ativas'
-                  className="data-[state=inactive]:text-black data-[state=active]:bg-green-400 text-white">Ativas</TabsTrigger>
+                  className="data-[state=inactive]:text-black data-[state=active]:bg-green-400 text-white">Ativas
+                  <span>{listaTarefas.filter((tarefa: any) => tarefa.ativo === true).length}</span>
+                  </TabsTrigger>
 
                <TabsTrigger value='concluidas'
-                  className="data-[state=inactive]:text-black data-[state=active]:bg-green-400 text-white">Concluídas</TabsTrigger>
+                  //listaTarefas.filter((tarefa: any) => tarefa.ativo === false)
+                  className="data-[state=inactive]:text-black data-[state=active]:bg-green-400 text-white">Concluídas
+                  <span>{listaTarefas.filter((tarefa: any) => tarefa.ativo === false).length}</span>
+               </TabsTrigger>
+ 
             </TabsList>
 
             <TabsContent value='todas' className=''>
