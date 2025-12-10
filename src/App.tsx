@@ -13,21 +13,18 @@ import { useState } from 'react'
 
 
 function App() {
-    const [listaTarefas, setListaTarefas] = useState<string[]>([])
+  const [listaTarefas, setListaTarefas] = useState<string[]>([])
   return (
     <>
-    <header>
-    <Titulo />
-    </header>
-     
-    <main>
-    <AdicionarTarefa listaTarefas={listaTarefas} setListaTarefas={setListaTarefas}/>
-    <CrdTarefas listaTarefas={listaTarefas} setListaTarefas={setListaTarefas} />
-   
+      <header>
+        <Titulo />
+      </header>
 
-    
-    </main>
-      
+      <main>
+        <AdicionarTarefa listaTarefas={listaTarefas} setListaTarefas={setListaTarefas} />
+        <CrdTarefas listaTarefas={listaTarefas} setListaTarefas={setListaTarefas} />
+      </main>
+
     </>
   );
 };
