@@ -29,7 +29,7 @@ const CrdTarefas = ({ listaTarefas, setListaTarefas }: any) => {
    const deleteTarefa = (tarefa: string) => {
       setListaTarefas((prev: any[]) => prev.filter(id => id !== tarefa));
       toast(
-         <div className="text-red-400 flex items-center gap-2">
+         <div className="text-red-400 flex items-center gap-2 ">
             <CircleCheck/>
             <p>Tarefa Deletada com Sucesso!</p>
          </div>
@@ -63,9 +63,9 @@ const CrdTarefas = ({ listaTarefas, setListaTarefas }: any) => {
 
             <TabsContent value='todas' className=''>
                <Card
-                  className="p-40 shadow-lg relative shadow-none border-none">
+                  className=" shadow-lg relative shadow-none border-none">
 
-                  {<div className="">
+                  {<div className="items-center p-3 sm:p-25">
                      {// Verifica se tem tarefas na lista
                         listaTarefas.length === 0 && (
                            <div>
@@ -75,7 +75,7 @@ const CrdTarefas = ({ listaTarefas, setListaTarefas }: any) => {
                         )}
                      {
                         listaTarefas.map((tarefa: any, index: number) => (
-                           <div key={index} className="flex border border-gray-300 p-5 rounded-md mb-2 gap-2">
+                           <div key={index} className="flex border border-gray-300 p-10 rounded-md mb-2 gap-2">
 
                               <Checkbox
                                  onClick={() => {
@@ -104,12 +104,13 @@ const CrdTarefas = ({ listaTarefas, setListaTarefas }: any) => {
 
             <TabsContent value='ativas'>
                <Card
-                  className="p-40 shadow-lg relative shadow-none border-none">
+                  className=" shadow-lg relative shadow-none border-none">
 
-                  <div className="">
+                  <div className="items-center p-3  sm:p-25">
 
                      {// Verifica se tem tarefas na lista
-                        listaTarefas.length === 0 ? (
+                       listaTarefas
+                              .filter((tarefa: any) => tarefa.ativo).length === 0 ? ( 
                            <div className="text-center">
                               <CircleCheck className="w-10 h-10 mx-auto mb-2 text-gray-400 " />
                               <span>Você está em dia</span>
@@ -118,7 +119,7 @@ const CrdTarefas = ({ listaTarefas, setListaTarefas }: any) => {
                            listaTarefas
                               .filter((tarefa: any) => tarefa.ativo === true)
                               .map((tarefa: any, index: number) => (
-                                 <div key={index} className="flex border border-gray-300 p-5 rounded-md mb-2 gap-2">
+                                 <div key={index} className="flex border border-gray-300 p-10 rounded-md mb-2 gap-2">
 
                                     <Checkbox
                                        onClick={() => {
@@ -140,7 +141,9 @@ const CrdTarefas = ({ listaTarefas, setListaTarefas }: any) => {
                                  </div>
 
                               ))
+                           
                         )}
+                        
 
                   </div>
 
@@ -150,9 +153,9 @@ const CrdTarefas = ({ listaTarefas, setListaTarefas }: any) => {
 
             <TabsContent value='concluidas'>
                <Card
-                  className="p-40 shadow-lg relative shadow-none border-none">
+                  className=" shadow-lg relative shadow-none border-none">
 
-                  <div className="">
+                  <div className="items-center p-3 sm:p-25">
 
                      {
                         /* Mesmo quando a tarefa for adicionada, se o status dela não for false,ainda irá mostrar a mensagem de quando não tem tarefa nenhuma*/

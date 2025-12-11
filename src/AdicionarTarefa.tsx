@@ -6,11 +6,12 @@ import { useState } from "react";
 import { toast } from "sonner";
 import { CircleCheck } from 'lucide-react';
 
-interface Tarefa {
+/* interface Tarefa {
     id: number;
     tarefa: string;
     ativo: boolean;
 }
+*/
 
 const Adicionar = ({ setListaTarefas }: any) => {
 
@@ -28,7 +29,6 @@ const Adicionar = ({ setListaTarefas }: any) => {
             </div>
         );
     }
-
 
     return (
         <div className="flex gap-3 pr-5 pl-5 pb-5 pt-5 justify-center items-center border-black-500 border rounded-lg shadow-md">
