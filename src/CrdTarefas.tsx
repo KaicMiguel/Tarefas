@@ -13,7 +13,6 @@ import {
 import { CircleCheck } from 'lucide-react';
 //import { useState } from 'react';
 
-
 //toggle -> alternar entre dois estados
 
 const CrdTarefas = ({ listaTarefas, setListaTarefas }: any) => {
@@ -30,35 +29,34 @@ const CrdTarefas = ({ listaTarefas, setListaTarefas }: any) => {
       setListaTarefas((prev: any[]) => prev.filter(id => id !== tarefa));
       toast(
          <div className="text-red-400 flex items-center gap-2 ">
-            <CircleCheck/>
+            <CircleCheck />
             <p>Tarefa Deletada com Sucesso!</p>
          </div>
       );
-
    }
 
    return (
       <div className="bg-gray-200 rounded-lg mt-6 flex ">
-         <Tabs className='w-full bg-background shadow p-4 rounded-md ' defaultValue="" >
+         <Tabs className='w-full bg-background shadow p-4 rounded-md' defaultValue="" >
 
             <TabsList className='gap-2'>
                <TabsTrigger value='todas'
                   className="data-[state=inactive]:text-black data-[state=active]:bg-green-400 text-white"
                >Todas
-               <span>{listaTarefas.length}</span>
+                  <span>{listaTarefas.length}</span>
                </TabsTrigger>
 
                <TabsTrigger value='ativas'
                   className="data-[state=inactive]:text-black data-[state=active]:bg-green-400 text-white">Ativas
                   <span>{listaTarefas.filter((tarefa: any) => tarefa.ativo === true).length}</span>
-                  </TabsTrigger>
+               </TabsTrigger>
 
                <TabsTrigger value='concluidas'
                   //listaTarefas.filter((tarefa: any) => tarefa.ativo === false)
                   className="data-[state=inactive]:text-black data-[state=active]:bg-green-400 text-white">Concluídas
                   <span>{listaTarefas.filter((tarefa: any) => tarefa.ativo === false).length}</span>
                </TabsTrigger>
- 
+
             </TabsList>
 
             <TabsContent value='todas' className=''>
@@ -69,7 +67,7 @@ const CrdTarefas = ({ listaTarefas, setListaTarefas }: any) => {
                      {// Verifica se tem tarefas na lista
                         listaTarefas.length === 0 && (
                            <div>
-                              <CircleCheck className="w-10 h-10 mx-auto mb-2 text-gray-400 " />
+                              <CircleCheck className="w-10 h-10 mx-auto mb-2 text-gray-400" />
                               <span>Adicione sua primeira tarefa acima</span>
                            </div>
                         )}
@@ -83,7 +81,7 @@ const CrdTarefas = ({ listaTarefas, setListaTarefas }: any) => {
                                     toggleTarefa(tarefa.id)
                                  }}
                                  className={`border-green-400 rounded-full size-5 cursor-pointer`} />
-                              <span className={`${tarefa.ativo ? "" : "line-through"}`}>{tarefa.tarefa}</span>
+                              <span className={`${tarefa.ativo ? "" : "line-through text-gray-500"}`}>{tarefa.tarefa}</span>
 
                               {
                                  <Trash2 className="w-20 ml-auto cursor-pointer text-red-500"
@@ -109,8 +107,8 @@ const CrdTarefas = ({ listaTarefas, setListaTarefas }: any) => {
                   <div className="items-center p-3  sm:p-25">
 
                      {// Verifica se tem tarefas na lista
-                       listaTarefas
-                              .filter((tarefa: any) => tarefa.ativo).length === 0 ? ( 
+                        listaTarefas
+                           .filter((tarefa: any) => tarefa.ativo).length === 0 ? (
                            <div className="text-center">
                               <CircleCheck className="w-10 h-10 mx-auto mb-2 text-gray-400 " />
                               <span>Você está em dia</span>
@@ -141,12 +139,9 @@ const CrdTarefas = ({ listaTarefas, setListaTarefas }: any) => {
                                  </div>
 
                               ))
-                           
                         )}
-                        
 
                   </div>
-
 
                </Card>
             </TabsContent>
@@ -168,7 +163,7 @@ const CrdTarefas = ({ listaTarefas, setListaTarefas }: any) => {
                         ) : (
                            listaTarefas.filter((tarefa: any) => tarefa.ativo === false)
                               .map((tarefa: any, index: number) => (
-                                 <div key={index} className="flex border border-gray-300 p-5 rounded-md mb-2 gap-2">
+                                 <div key={index} className="flex border border-gray-300 p-10 rounded-md mb-2 gap-2 text-gray-500">
                                     <Checkbox
                                        onClick={() => {
                                           console.log("Tarefa Concluída")

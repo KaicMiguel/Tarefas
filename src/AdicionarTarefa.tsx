@@ -12,8 +12,8 @@ import { CircleCheck } from 'lucide-react';
     ativo: boolean;
 }
 */
-
 const Adicionar = ({ setListaTarefas }: any) => {
+
 
     const [tarefa, setTarefa] = useState<string>("")
 
