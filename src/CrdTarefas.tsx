@@ -11,11 +11,36 @@ import {
 
 } from "@/components/ui/tabs"
 import { CircleCheck } from 'lucide-react';
-//import { useState } from 'react';
+import { useEffect } from 'react';
+import { useState } from 'react';
 
 //toggle -> alternar entre dois estados
 
 const CrdTarefas = ({ listaTarefas, setListaTarefas }: any) => {
+
+  const [carregado, setCarregado] = useState(false);
+
+  useEffect(() => {
+    try {
+      const tarefaSalva = localStorage.getItem("listaTarefas");
+
+      if (tarefaSalva) {
+        setListaTarefas(JSON.parse(tarefaSalva));
+      }
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setCarregado(true);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!carregado) return;
+
+    localStorage.setItem("listaTarefas", JSON.stringify(listaTarefas));
+    console.log("Status da Tarefa Mudou");
+  }, [listaTarefas, carregado]);
+
 
    const toggleTarefa = (id: number) => {
       setListaTarefas((prev: any) =>
